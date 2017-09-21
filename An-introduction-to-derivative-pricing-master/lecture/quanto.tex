@@ -1,0 +1,158 @@
+\documentclass[15pt]{beamer}
+\usepackage{CJK}
+
+
+\usefonttheme{serif}
+\usetheme{Hannover}
+
+
+\newcommand{\song}{\CJKfamily{song}}
+\newcommand{\xiaoer}{\fontsize{14pt}{14pt}\selectfont}
+\newcommand{\xiaosan}{\fontsize{15pt}{22pt}\selectfont}
+
+\definecolor{mycolor}{RGB}{89,89,191}
+	
+\begin{document}
+
+
+\title{Quanto forward}
+\institute{Wuhan University}
+\author{Zhang Haitao}
+\date{\today}
+
+\frame[plain]{\titlepage}
+
+
+\begin{frame}{\contentsname}
+	\tableofcontents
+\end{frame}
+
+
+
+\section{Background}
+	\begin{frame}{Background}
+	A quanto is a type of derivative in which the underlying is denominated in one currency, but the instrument itself is settled in another currency at some rate.For example:
+	
+	\begin{itemize}
+		\item a digital contract which pays one dollar at time T if the then British Petroleum stock price is larger than some pre-agreed stike;
+		
+		\item a forward contract,namely receiving the BP stock price at time T as if it were in dollars in exhange for paying a pre-agreed dollar amount;
+		
+		\item an option to receive the BP stock price less a strike price,in dollars.
+	\end{itemize}
+	\end{frame}
+	
+
+
+\section{Assumption}
+	\begin{frame}{Assumption}
+		\begin{enumerate}
+			\item sterling stock price $S_t=S_0e^{\sigma_1W_1(t)+\mu t}$
+			
+			\item the value of one pound in dollars $C_t=C_0e^{\rho      \sigma_2W_1(t)+\bar {\rho}\sigma_2W_2(t)+vt}$
+			
+			\item dollar cash bond $B_t=e^{rt} $  
+			
+			\item sterling cash bond $D_t=e^{ut} $
+		\end{enumerate}
+		
+		where $\rho\in [-1,1]$ and $\bar \rho=\sqrt{1-\rho^2}$,and $\sigma_1$,$\sigma_2$,$\mu$,$\rho$,v,r,u are all constant 
+		
+	\end{frame}
+
+
+\section{Change of measure}
+	\begin{frame}{Change of measure}
+		In this model,here are three tradables:
+		\begin{enumerate}
+			\item the dollar worth of the sterling bond:$C_tD_t$
+			\item the dollar worth of the stock:$C_tS_t$
+			\item the dollar cash bond:$B_t$
+		\end{enumerate}
+		
+		\
+		
+		Writing down the first two of these tradables after discounting by the third,the numeraire,we have $Y_t=B_t^{-1}C_tD_t$ and $Z_t=B_t^{-1}C_tS_T$ respectively. 
+	
+	\end{frame}
+
+
+
+
+	\begin{frame}{Change of measure}
+		According to n-factor GCM,we need to find $\gamma_t=(\gamma_1(t),\gamma_2(t))$ to make：
+		\begin{equation}
+			dY_t=Y_t\left(\rho \sigma_2 d \tilde{W}_1(t) + \bar {\rho} \sigma_2 d \tilde {W}_2(t)\right)
+		\end{equation}
+		\begin{equation}
+			dZ_t=Z_t\left((\sigma_1+\rho \sigma_2) d \tilde{W}_1(t)+\bar {\rho} \sigma_2 d\tilde{W}_2(t)\right)
+		\end{equation}
+		
+		\
+		
+		Where
+		\begin{align}
+		d\tilde {W}_1(t)=dW_1(t)+\gamma_1(t)dt\\
+		d\tilde {W}_2(t)=dW_2(t)+\gamma_2(t)dt
+		\end{align}
+		
+		Thus under Q we can write the original process $S_t$ as:
+		\begin{equation}
+			S_t=S_0e^{\sigma_1\tilde W_1(t) +(u -\rho \sigma_1 \sigma_2 -\frac{1}{2}\sigma_1^2)t}
+		\end{equation}
+		
+	\end{frame}
+
+
+
+
+
+\section{Pricing}
+	\begin{frame}{Pricing}
+		The forward at time zero in dollars is  
+		\begin{align}
+			V_0 & =e^{-rT}E_Q(S_T-k)\notag\\
+				& =e^{-rT}E_Q(S_0e^{\sigma_1\sqrt{T}Z +(u -\rho \sigma_1 \sigma_2 -\frac{1}{2}\sigma_1^2)T}-k)\notag\\
+				& =e^{-rT}(S_0e^{(u +\rho \sigma_1 \sigma_2)T}-k)
+		\end{align}
+		
+		where $Z\sim N(0,1)$ under Q.
+		
+		\
+		
+		For this to be on market,that is to have a value of zero,we must set k to be $S_0e^{(u {\color {red}{+\rho \sigma_1 \sigma_2}})T}$.
+		
+	\end{frame}
+
+
+\section{Implication}
+	\begin{frame}{Implication}
+	We know that for the local currency forward $F=S_0e^{u T}$,so $k=F{\color {red}{e^{-\rho \sigma_1 \sigma_2 T}}}$.It is clear that this quanto forward price is greater than the simple forward price if and only if the correlation between the stock and the exchange rate is negative.  
+	\end{frame}
+
+
+\section{Example}
+	\begin{frame}{Example}
+	
+	Suppose that the current value of the Nikkei sotck index is 15,000 yen,the 1-year dollar risk-free rate is 5\%,the 1-year yen risk-free rate is 2\%.And suppose that the volatility of the index is 20\%,the volatility of the 1-year forward yen per dollar exchange rate is 12\%,and the correlation between the two is 0.3.For simplicity:
+	\begin{align*}
+	&s_0=15000\\  
+	&u=0.02  \\
+	&T=1  \\
+	&\sigma_1=0.2\\  
+	&\sigma_2=0.12 \\ 
+	&\rho=0.3 
+	\end{align*}
+	
+	\begin{flalign*}
+	&F=S_0e^{\mu T}=15303.02\\
+	&k=Fe^{-\rho \sigma_1 \sigma_2 T}=15193.23
+	\end{flalign*}
+	
+	\end{frame}
+
+
+
+\end{document}
+
+
